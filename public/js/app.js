@@ -394,36 +394,7 @@
 
     
 
-    // ＋ ボタンクリック時のイベント
-    // arrBtnQuery[i].addBtnQuery.addEventListener('click', (e) => {
-    //     // console.log(e.target); 
-    //         // obj data (arrMeatData[].stock) を更新   // parseInt() .. 文字列を数字に変換
-    //         arrMeatData[i].stock = parseInt(arrBtnQuery[i].stockQuery.textContent) + 1;
-    //         // HTML に反映 クリック舞に+1
-    //         arrBtnQuery[i].stockQuery.textContent = arrMeatData[i].stock ; 
-            
-
-    //     // 在庫量 残りKg数の計算 -> HTML表示 更新
-    //     const leftKg = calc_leftWeight(arrMeatData[i].volume, arrMeatData[i].stock);
-    // //     // console.log(`残り ${leftKg} kg`) 
-
-    //         // obj data (arrMeatData[i]).sumVolume の更新
-    //         arrMeatData[i].sumVolume = leftKg;
-    //         // 残りKg HTML表示 更新
-    //         arrBtnQuery[i].weightQuery.textContent = arrMeatData[i].sumVolume;
-
-    //         // console.log(arrMeatData[i]);
-
-    // });
-    
-    
-    // load Event ページ再読込（更新）時にも HTMLを表示
-    //  window.addEventListener('load', controlRecipe);
-
-    // click event (button add, dec)
-    // import { btn_decEl } from '../views/base'; // Cannot use import statement outside a module
-
-    
+   
 
     //  const arrMeatData = [
     //     {
