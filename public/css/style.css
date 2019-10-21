@@ -1,0 +1,138 @@
+
+
+     #pic {
+        width: 25rem;
+    }
+
+
+    body {
+        color: #333333;
+        font-family: arial;
+        font-size: 1.6rem;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 0 16px;
+        
+        /* flex */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        
+    }
+    
+    .main-content {
+        flex-grow: 1;
+    }
+    
+    footer {
+        color: #888888;
+        border-top: 1px solid #c7c4c4;
+        margin-top: 16px;
+        padding: 16px 0;
+    }
+    
+    header {
+        margin-top: 16px;
+        margin-bottom: 48px;
+        border-bottom: 1px solid #eeeeee;
+    }
+    
+    h1 {
+        font-size: 64px;
+        margin-bottom: 16px;
+    }
+    
+    header a {
+        color: #888888;
+        margin-right: 16px;
+        text-decoration: none;
+        font-size: 1.6rem;
+    }
+    
+    /* for pic */
+    .portrait {  
+        width: 250px;
+    }
+
+    input {
+        border: 1px solid #888888;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    button {
+        cursor: pointer;
+        border: 1px solid #888888;
+        padding: 1rem;
+        background-color: #eeeeee;
+    }
+
+
+    /* css for meat-stock */
+    * {
+        margin: 0;
+        padding: 0; 
+    }
+
+    .container {
+        /* border: 1px solid #888888; */
+        background-color: #f1efef;
+        padding: 1rem;
+        margin-top: 2.5rem;
+
+    }
+
+    .totalStock-container {
+        background-color: #faecec;
+        padding: 1rem;
+        text-align: center;
+        margin-top: 2.5rem;
+    }
+
+    .btn-dataSave {
+        padding: .7rem;
+        margin-top: 1.5rem;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400;
+        background-color: #d9f7e5;
+    }
+
+    .btn-loadData {
+        padding: .7rem;
+        margin-top: 1.5rem;
+        margin-left: 2rem;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400;
+        background-color: #b5cef3;
+    }
+
+    .element {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .left-kg {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .btn-dec {
+        background-color: #fcb0b0;
+        width: 10%;
+        height: 50%;
+        font-size: 2rem;
+        font-weight: 400;
+        color: #e60505;
+    }
+
+    .btn-add {
+        background-color: #b0c4fc;
+        width: 10%;
+        height: 50%;
+        font-size: 2rem;
+        font-weight: 400;
+        color: #333333;
+    }
