@@ -132,13 +132,7 @@
                 // console.log(dataJson[0].html);
                 // HTML 要素を追加  insertAdjacentHTML... https://developer.mozilla.org/ja/docs/Web/API/Element/insertAdjacentHTML
                 meatContainer.insertAdjacentHTML('afterend', dataJson[0].html);
-                
-                const arrTitle = dataJson.map( (el) => el.title);
-                    // console.log(arrTitle);
 
-                // document.querySelector(`#title-${dataJson[1].IdName}`).textContent = 'Test title Print';
-                // console.log(dataJson.length); // 10
-                
                 // title を dataJson より 抽出してHTML 表示
                 for (i = 1; i < dataJson.length; i++) {
                     document.querySelector(`#title-${dataJson[i].IdName}`).textContent = dataJson[i].title;
@@ -196,8 +190,6 @@
                     const totalStockEl = document.querySelector('#totalStock');
                     totalStockEl.textContent = vol; 
                 }
-                
-
 
                 // 在庫量 kg の更新     toFixed() ... 数を固定小数点表記でフォーマット
                 const updateStockVol = (data) => {
@@ -228,95 +220,184 @@
                     let leftStockVol = getSumStockVol(jsonData); // return totalStockVol
                     // id="totalStock" 残りKg leftStockVol を更新
                     updateSumStock(leftStockVol); 
-                });
 
 
-                //ボタン(.btn-dec) & (.btn-add) クリック時のイベント
-                const decBtnEl = document.querySelectorAll('.btn-dec'); // node-list
-                const addBtnEl = document.querySelectorAll('.btn-add'); // node-list
+                    //ボタン(.btn-dec) & (.btn-add) クリック時のイベント
+                    const decBtnEl = document.querySelectorAll('.btn-dec'); // node-list
+                    const addBtnEl = document.querySelectorAll('.btn-add'); // node-list
 
-                // ボタン クリックに対応した要素のIDを取得する関数
-                const getTargetId = (el) => el.target.closest('div div').id;
+                    // ボタン クリックに対応した要素のIDを取得する関数
+                    const getTargetId = (el) => el.target.closest('div div').id;
 
-                // 各 ー ボタン(.btn-dec)クリック時のイベント
-                decBtnEl.forEach( (cur, i) => {
-                    cur.addEventListener('click', (e) => {
-                        // console.log(e.target);
-                        // const targetStockEl = e.target.closest('div div');
-                        const id = getTargetId(e)
-                        // console.log(id); // exp... kataR_300
-                        const stockEl_Id = `stock_${id}`;
-                        // console.log(stockEl_Id); // exp... stock_kataR_300
-                        const targetStockEl = document.querySelector(`#${stockEl_Id}`);
-                        // console.log(targetStockEl.textContent);
-                        const targetStWeightEl = document.querySelector(`#weight_${id}`);
+                    // 各 ー ボタン(.btn-dec)クリック時のイベント
+                    decBtnEl.forEach( (cur, i) => {
+                        cur.addEventListener('click', (e) => {
+                            // console.log(e.target);
+                            // const targetStockEl = e.target.closest('div div');
+                            const id = getTargetId(e)
+                            // console.log(id); // exp... kataR_300
+                            const stockEl_Id = `stock_${id}`;
+                            // console.log(stockEl_Id); // exp... stock_kataR_300
+                            const targetStockEl = document.querySelector(`#${stockEl_Id}`);
+                            // console.log(targetStockEl.textContent);
+                            const targetStWeightEl = document.querySelector(`#weight_${id}`);
 
-                        // 在庫(id="stock_") 数 0以上ならマイナス１
-                        if (dataJson[i+1].stock > 0) {
-                            // obj data (dataJson[].stock) を更新   // parseInt() .. 文字列を数字に変換
-                            dataJson[i+1].stock = parseInt(targetStockEl.textContent) - 1;
-                            // HTML に反映 クリック舞に-1
-                            targetStockEl.textContent = dataJson[i+1].stock;
-                            // 在庫量 kg の更新 // obj data (dataJson[].sumVolume) を更新
-                            dataJson[i+1].sumVolume = calc_leftWeight(dataJson[i+1].volume, dataJson[i+1].stock)
-                            // HTML に反映 クリック舞にkg 減少
-                            targetStWeightEl.textContent = dataJson[i+1].sumVolume;
-                            
+                            // 在庫(id="stock_") 数 0以上ならマイナス１
+                            if (jsonData[i+1].stock > 0) {
+                                // obj data (jsonData[].stock) を更新   // parseInt() .. 文字列を数字に変換
+                                jsonData[i+1].stock = parseInt(targetStockEl.textContent) - 1;
+                                // HTML に反映 クリック舞に-1
+                                targetStockEl.textContent = jsonData[i+1].stock;
+                                // 在庫量 kg の更新 // obj data (jsonData[].sumVolume) を更新
+                                jsonData[i+1].sumVolume = calc_leftWeight(jsonData[i+1].volume, jsonData[i+1].stock)
+                                // HTML に反映 クリック舞にkg 減少
+                                targetStWeightEl.textContent = jsonData[i+1].sumVolume;
+                                
+                                // 残りの合計ストック kg数を更新
+                                // 残りの合計ストック kg数を算出 関数を呼び出し 
+                                let leftStockVol = getSumStockVol(jsonData); // return totalStockVol
+                                // id="totalStock" 残りKg leftStockVol を更新
+                                updateSumStock(leftStockVol);
+
+                            }
+                        });
+                    });
+
+
+                    // 各 + ボタン(.btn-add)クリック時のイベント
+                    addBtnEl.forEach( (cur, i) => {
+                        cur.addEventListener('click', (e) => {
+                            // console.log(e.target);
+                            // const targetStockEl = e.target.closest('div div');
+                            const id = getTargetId(e)
+                            // console.log(id); // exp... kataR_300
+                            const stockEl_Id = `stock_${id}`;
+                            // console.log(stockEl_Id); // exp... stock_kataR_300
+                            const targetStockEl = document.querySelector(`#${stockEl_Id}`);
+                            // console.log(targetStockEl.textContent);
+                            const targetStWeightEl = document.querySelector(`#weight_${id}`);
+
+                            // 在庫(id="stock_") 数 クリックごとに＋１
+                            // obj data (jsonData[].stock) を更新   // parseInt() .. 文字列を数字に変換
+                            jsonData[i+1].stock = parseInt(targetStockEl.textContent) + 1;
+                            // HTML に反映 クリック舞に+1 
+                            targetStockEl.textContent = jsonData[i+1].stock;
+                            // 在庫量 kg の更新 // obj data (jsonData[].sumVolume) を更新
+                            jsonData[i+1].sumVolume = calc_leftWeight(jsonData[i+1].volume, jsonData[i+1].stock)
+                            // HTML に反映 クリック舞にkg 増加
+                            targetStWeightEl.textContent = jsonData[i+1].sumVolume;
+                                // console.log(jsonData);
+
                             // 残りの合計ストック kg数を更新
-                              // 残りの合計ストック kg数を算出 関数を呼び出し 
-                              let leftStockVol = getSumStockVol(dataJson); // return totalStockVol
-                              // id="totalStock" 残りKg leftStockVol を更新
-                              updateSumStock(leftStockVol);
-
-                        }
+                                // 残りの合計ストック kg数を算出 関数を呼び出し 
+                                let leftStockVol = getSumStockVol(jsonData); // return totalStockVol
+                                // id="totalStock" 残りKg leftStockVol を更新
+                                updateSumStock(leftStockVol);
+                        });
                     });
-                });
 
+                    // データ保存ボタン (.btn-dataSave) クリック時のイベント
+                    document.querySelector('.btn-dataSave').addEventListener('click', () => {
+                        // console.log(jsonData);
+                        // ローカルストレージに key= "updateData" で JSON文字列に変換した jsonData を保存
+                        localStorage.setItem('updateData', JSON.stringify(jsonData) );
 
-                // 各 + ボタン(.btn-add)クリック時のイベント
-                addBtnEl.forEach( (cur, i) => {
-                    cur.addEventListener('click', (e) => {
-                        // console.log(e.target);
-                        // const targetStockEl = e.target.closest('div div');
-                        const id = getTargetId(e)
-                        // console.log(id); // exp... kataR_300
-                        const stockEl_Id = `stock_${id}`;
-                        // console.log(stockEl_Id); // exp... stock_kataR_300
-                        const targetStockEl = document.querySelector(`#${stockEl_Id}`);
-                        // console.log(targetStockEl.textContent);
-                        const targetStWeightEl = document.querySelector(`#weight_${id}`);
+                        // let jsonStrData = localStorage.getItem('updateData');
+                        // // // console.log(jsonStrData);
+                        // let jsonData = JSON.parse(jsonStrData); // = jsonData
+                        // console.log(jsonData);
 
-                        // 在庫(id="stock_") 数 クリックごとに＋１
-                        // obj data (dataJson[].stock) を更新   // parseInt() .. 文字列を数字に変換
-                        dataJson[i+1].stock = parseInt(targetStockEl.textContent) + 1;
-                        // HTML に反映 クリック舞に+1 
-                        targetStockEl.textContent = dataJson[i+1].stock;
-                        // 在庫量 kg の更新 // obj data (dataJson[].sumVolume) を更新
-                        dataJson[i+1].sumVolume = calc_leftWeight(dataJson[i+1].volume, dataJson[i+1].stock)
-                        // HTML に反映 クリック舞にkg 増加
-                        targetStWeightEl.textContent = dataJson[i+1].sumVolume;
-                            // console.log(dataJson);
-
-                        // 残りの合計ストック kg数を更新
-                              // 残りの合計ストック kg数を算出 関数を呼び出し 
-                              let leftStockVol = getSumStockVol(dataJson); // return totalStockVol
-                              // id="totalStock" 残りKg leftStockVol を更新
-                              updateSumStock(leftStockVol);
                     });
-                });
 
-                // データ保存ボタン (.btn-dataSave) クリック時のイベント
-                document.querySelector('.btn-dataSave').addEventListener('click', () => {
-                    // console.log(dataJson);
-                    // ローカルストレージに key= "updateData" で JSON文字列に変換した dataJson を保存
-                    localStorage.setItem('updateData', JSON.stringify(dataJson) );
+                }); // END データ読込みボタン (.btn-loadData) クリック時のイベント
 
-                    // let jsonStrData = localStorage.getItem('updateData');
-                    // // // console.log(jsonStrData);
-                    // let jsonData = JSON.parse(jsonStrData); // = dataJson
-                    // console.log(jsonData);
 
-                });
+                // //ボタン(.btn-dec) & (.btn-add) クリック時のイベント
+                // const decBtnEl = document.querySelectorAll('.btn-dec'); // node-list
+                // const addBtnEl = document.querySelectorAll('.btn-add'); // node-list
+
+                // // ボタン クリックに対応した要素のIDを取得する関数
+                // const getTargetId = (el) => el.target.closest('div div').id;
+
+                // // 各 ー ボタン(.btn-dec)クリック時のイベント
+                // decBtnEl.forEach( (cur, i) => {
+                //     cur.addEventListener('click', (e) => {
+                //         // console.log(e.target);
+                //         // const targetStockEl = e.target.closest('div div');
+                //         const id = getTargetId(e)
+                //         // console.log(id); // exp... kataR_300
+                //         const stockEl_Id = `stock_${id}`;
+                //         // console.log(stockEl_Id); // exp... stock_kataR_300
+                //         const targetStockEl = document.querySelector(`#${stockEl_Id}`);
+                //         // console.log(targetStockEl.textContent);
+                //         const targetStWeightEl = document.querySelector(`#weight_${id}`);
+
+                //         // 在庫(id="stock_") 数 0以上ならマイナス１
+                //         if (dataJson[i+1].stock > 0) {
+                //             // obj data (dataJson[].stock) を更新   // parseInt() .. 文字列を数字に変換
+                //             dataJson[i+1].stock = parseInt(targetStockEl.textContent) - 1;
+                //             // HTML に反映 クリック舞に-1
+                //             targetStockEl.textContent = dataJson[i+1].stock;
+                //             // 在庫量 kg の更新 // obj data (dataJson[].sumVolume) を更新
+                //             dataJson[i+1].sumVolume = calc_leftWeight(dataJson[i+1].volume, dataJson[i+1].stock)
+                //             // HTML に反映 クリック舞にkg 減少
+                //             targetStWeightEl.textContent = dataJson[i+1].sumVolume;
+                            
+                //             // 残りの合計ストック kg数を更新
+                //               // 残りの合計ストック kg数を算出 関数を呼び出し 
+                //               let leftStockVol = getSumStockVol(dataJson); // return totalStockVol
+                //               // id="totalStock" 残りKg leftStockVol を更新
+                //               updateSumStock(leftStockVol);
+
+                //         }
+                //     });
+                // });
+
+
+                // // 各 + ボタン(.btn-add)クリック時のイベント
+                // addBtnEl.forEach( (cur, i) => {
+                //     cur.addEventListener('click', (e) => {
+                //         // console.log(e.target);
+                //         // const targetStockEl = e.target.closest('div div');
+                //         const id = getTargetId(e)
+                //         // console.log(id); // exp... kataR_300
+                //         const stockEl_Id = `stock_${id}`;
+                //         // console.log(stockEl_Id); // exp... stock_kataR_300
+                //         const targetStockEl = document.querySelector(`#${stockEl_Id}`);
+                //         // console.log(targetStockEl.textContent);
+                //         const targetStWeightEl = document.querySelector(`#weight_${id}`);
+
+                //         // 在庫(id="stock_") 数 クリックごとに＋１
+                //         // obj data (dataJson[].stock) を更新   // parseInt() .. 文字列を数字に変換
+                //         dataJson[i+1].stock = parseInt(targetStockEl.textContent) + 1;
+                //         // HTML に反映 クリック舞に+1 
+                //         targetStockEl.textContent = dataJson[i+1].stock;
+                //         // 在庫量 kg の更新 // obj data (dataJson[].sumVolume) を更新
+                //         dataJson[i+1].sumVolume = calc_leftWeight(dataJson[i+1].volume, dataJson[i+1].stock)
+                //         // HTML に反映 クリック舞にkg 増加
+                //         targetStWeightEl.textContent = dataJson[i+1].sumVolume;
+                //             // console.log(dataJson);
+
+                //         // 残りの合計ストック kg数を更新
+                //               // 残りの合計ストック kg数を算出 関数を呼び出し 
+                //               let leftStockVol = getSumStockVol(dataJson); // return totalStockVol
+                //               // id="totalStock" 残りKg leftStockVol を更新
+                //               updateSumStock(leftStockVol);
+                //     });
+                // });
+
+                // // データ保存ボタン (.btn-dataSave) クリック時のイベント
+                // document.querySelector('.btn-dataSave').addEventListener('click', () => {
+                //     // console.log(dataJson);
+                //     // ローカルストレージに key= "updateData" で JSON文字列に変換した dataJson を保存
+                //     localStorage.setItem('updateData', JSON.stringify(dataJson) );
+
+                //     // let jsonStrData = localStorage.getItem('updateData');
+                //     // // // console.log(jsonStrData);
+                //     // let jsonData = JSON.parse(jsonStrData); // = dataJson
+                //     // console.log(jsonData);
+
+                // });
 
                 
                 
